@@ -13,15 +13,15 @@ const navLinks = [
 
 export default function Navbar() {
     return (
-        <section className="py-4 lg:py-8">
+        <section className="py-4 lg:py-8 sticky top-0 z-50 ">
             <div className="container max-w-5xl">
-                <div className="grid grid-cols-2 lg:grid-cols-3  border border-white/15 rounded-full p-2 px-4 md:pr-2 items-center">
+                <div className="grid grid-cols-2 lg:grid-cols-3  border border-white/15 rounded-full p-2 px-4 md:pr-2 items-center bg-neutral-950/70 backdrop-blur">
                     <div>
                         <Image
                             src={logoImage}
                             alt="Layers logo"
                             className="h-9 md:h-auto  w-auto "
-                        />
+                        /> 
                     </div> 
                     <div className=" lg:flex justify-center items-center hidden">
                         <nav className="flex gap-6 font-medium">

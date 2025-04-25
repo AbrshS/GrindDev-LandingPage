@@ -52,7 +52,7 @@ export default function Integrations() {
                         <Tag>Integrations</Tag>
                         <h2 className="text-6xl font-medium mt-6 ">
                             Plays well with{" "}
-                            <span className="text-lime-400">others.</span>
+                            <span className="text-yellow-400">others.</span>
                         </h2>
                         <p className="text-white/50 mt-4 text-lg ">
                             Connect with your favorite tools to streamline your

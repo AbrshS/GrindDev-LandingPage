@@ -7,14 +7,19 @@ import Integrations from "@/sections/Integrations";
 import Faqs from "@/sections/Faqs";
 import CallToAction from "@/sections/CallToAction";
 import Footer from "@/sections/Footer";
+import ProductShowcase from "@/sections/ProductShowcase";
+import ImpactNumbers from "@/sections/ImpactNumbers";
+
 export default function Home() {
     return (
         <>
             <Navbar /> 
             <Hero/> 
+            <ImpactNumbers />
             <LogoTicker/>
             <Introduction/>
-            <Features/>
+            <Features/>  
+            <ProductShowcase/>
             <Integrations/>
             <Faqs/> 
             <CallToAction/> 

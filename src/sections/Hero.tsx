@@ -7,28 +7,50 @@ import Pointer from "@/components/pointer";
 export default function Hero() {
     return (
         <section className="py-24 overflow-x-clip">
-            <div className="container relative "> 
-                <div className="absolute -left-48 top-16 hidden lg:block">
-                    <Image
-                       src={designExample1} 
-                       alt="Design example 1"
-                    />
-                </div> 
-                <div className="absolute -right-64 -top-16 hidden lg:block">
-                <Image
-                       src={designExample2} 
-                       alt="Design example 1"
-                    />
-                </div> 
+            <div className="container relative">
+                {/* Top Left Image */}
+                <div className="absolute -left-32 -top-48 w-60 h-60 hidden lg:block">
+                    <div className="w-full h-full bg-white/5 rounded-2xl transform -rotate-12">
+                        {/* Image will go here */}
+                        <Image
+                            src={designExample1}
+                            alt="Design Example 1"
+                            fill
+                        />
+                    </div>
+                </div>
+
+                {/* Top Right Image */}
+                <div className="absolute -right-32 -top-32 w-80 h-80 hidden lg:block">
+                    <div className="w-full h-full bg-white/5 rounded-2xl transform rotate-12">
+                        {/* Image will go here */}
+                    </div>
+                </div>
+
+                {/* Bottom Left Image */}
+                <div className="absolute -left-32 -bottom-32 w-80 h-80 hidden lg:block">
+                    <div className="w-full h-full bg-white/5 rounded-2xl transform rotate-12">
+                        {/* Image will go here */}
+                    </div>
+                </div>
+
+                {/* Bottom Right Image */}
+                <div className="absolute -right-32 -bottom-32 w-80 h-80 hidden lg:block">
+                    <div className="w-full h-full bg-white/5 rounded-2xl transform -rotate-12">
+                        {/* Image will go here */}
+                    </div>
+                </div>
+
+                {/* Existing Pointer elements */}
                 <div className="absolute left-56 top-96 hidden lg:block">
-          <Pointer name = "ፈጣን"/>
-                </div> 
+                    <Pointer name="ፈጣን"/>
+                </div>
                 <div className="absolute right-80">
-          <Pointer name = "መገለጫ" color="red"/>
-                </div>  
+                    <Pointer name="መገለጫ" color="red"/>
+                </div>
 
                 <div className="flex justify-center">
-                <div className="inline-flex py-1 px-3 bg-gradient-to-r from-purple-400 to-pink-400 text-neutral-950  rounded-full font-semibold ">
+                <div className="inline-flex py-1 px-3 bg-gradient-to-r from-purple-400 to-pink-400 text-neutral-950 rounded-full font-semibold">
                     ✨ $7.5M seed round raised
                 </div>
                 </div>

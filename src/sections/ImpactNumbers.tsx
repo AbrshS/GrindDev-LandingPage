@@ -2,105 +2,129 @@
 
 import { motion } from "framer-motion";
 import Tag from "@/components/Tag";
-
-// Add these imports at the top
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useInView } from "framer-motion";
-import { useRef } from "react";
-
-const geezNumbers = [
-    '፩', '፪', '፫', '፬', '፭', '፮', '፯', '፰', '፱', '፲',
-    '፲፩', '፲፪', '፲፫', '፲፬', '፲፭', '፲፮', '፲፯', '፲፰', '፲፱', '፳'
-];
-
-const numberPositions = geezNumbers.map(() => ({
-    x: Math.random() * 120 - 10, // Spread from -10% to 110% horizontally
-    y: Math.random() * 120 - 10, // Spread from -10% to 110% vertically
-    rotate: Math.random() * 360
-}));
 
 export default function ImpactNumbers() {
+    const sectionRef = useRef(null);
+    const isInView = useInView(sectionRef, { once: false, margin: "-100px" });
+    
     return (
-        <section className="py-24 relative overflow-hidden min-h-[900px]">
-            <div className="absolute inset-0 p-20">
-                {geezNumbers.map((num, index) => (
-                    <div
-                        key={index}
-                        style={{
-                            position: 'absolute',
-                            left: `${numberPositions[index].x}%`,
-                            top: `${numberPositions[index].y}%`,
-                            transform: `translate(-50%, -50%) rotate(${numberPositions[index].rotate}deg)`,
-                            opacity: index === 11 ? 0.6 : 0.15
-                        }}
-                        className={`
-                            ${index === 11 
-                                ? 'text-yellow-400 text-[180px] md:text-[250px] font-bold z-10' 
-                                : 'text-white text-6xl md:text-7xl'
-                            }`}
-                    >
-                        {num}
-                    </div>
-                ))}
+        <section ref={sectionRef} className="py-24 relative overflow-hidden">
+            {/* Subtle background grid pattern */}
+            <div className="absolute inset-0 opacity-10">
+                <div className="absolute inset-0" 
+                    style={{
+                        backgroundImage: 'linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px)',
+                        backgroundSize: '80px 80px'
+                    }}
+                />
             </div>
-
-            {/* Rest of your content remains the same */}
+            
+            {/* Main content */}
             <div className="container relative z-20">
-                <div className="flex justify-center">
+                <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.7 }}
+                    className="flex justify-center"
+                >
                     <Tag>Impact</Tag>
-                </div>
-                <div className="max-w-4xl mx-auto text-center mt-8">
+                </motion.div>
+                
+                <motion.div 
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.7, delay: 0.2 }}
+                    className="max-w-4xl mx-auto text-center mt-8"
+                >
                     <h2 className="text-6xl md:text-7xl font-medium">
                         Driving <span className="text-yellow-400">innovation</span> through numbers
                     </h2>
                     <p className="text-white/50 mt-6 text-xl">
                         Our solutions have transformed businesses across industries, delivering measurable results and exceptional value.
                     </p>
-                </div>
+                </motion.div>
 
-                {/* Stats Grid */}
-                <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8">
-                    <StatItem endValue={12} label="Active Users" delay={0} isYellow={true} />
-                    <StatItem endValue={98} label="Client Satisfaction" delay={0.1} />
-                    <StatItem endValue={50} label="Countries Served" delay={0.2} />
-                    <StatItem endValue={24} label="Support Available" delay={0.3} />
+                {/* Clean, professional stat cards */}
+                <div className="mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <StatCard 
+                        value={12} 
+                        suffix="M+" 
+                        label="Active Users" 
+                        delay={0} 
+                        accentColor="yellow"
+                    />
+                    <StatCard 
+                        value={98} 
+                        suffix="%" 
+                        label="Client Satisfaction" 
+                        delay={0.1} 
+                        accentColor="blue"
+                    />
+                    <StatCard 
+                        value={50} 
+                        suffix="+" 
+                        label="Countries Served" 
+                        delay={0.2} 
+                        accentColor="purple"
+                    />
+                    <StatCard 
+                        value={24} 
+                        suffix="/7" 
+                        label="Support Available" 
+                        delay={0.3} 
+                        accentColor="emerald"
+                    />
                 </div>
             </div>
         </section>
     );
 }
 
-// Add this helper function after your existing geezNumbers array
-const toGeez = (num: number) => {
-    const geezDigits = ['፩', '፪', '፫', '፬', '፭', '፮', '፯', '፰', '፱'];
-    const geezTens = ['፲', '፳', '፴', '፵', '፶', '፷', '፸', '፹', '፺'];
-    
-    if (num <= 9) return geezDigits[num - 1] || '';
-    if (num % 10 === 0 && num <= 90) return geezTens[Math.floor(num / 10) - 1] || '';
-    
-    const tens = Math.floor(num / 10);
-    const ones = num % 10;
-    return `${geezTens[tens - 1] || ''}${ones > 0 ? geezDigits[ones - 1] : ''}`;
-};
-
-// Replace your Stats Grid section with this:
-const StatItem = ({ endValue, label, delay = 0, isYellow = false }) => {
+// Clean, professional stat card with subtle animation
+const StatCard = ({ 
+    value, 
+    label, 
+    suffix = "", 
+    delay = 0,
+    accentColor = "yellow"
+}: { 
+    value: number, 
+    label: string, 
+    suffix?: string, 
+    delay?: number,
+    accentColor?: string
+}) => {
     const [count, setCount] = useState(0);
-    const [isComplete, setIsComplete] = useState(false);
     const ref = useRef(null);
-    const isInView = useInView(ref);
+    const isInView = useInView(ref, { once: true });
+    
+    // Map accent colors to Tailwind classes
+    const accentColors: Record<string, string> = {
+        yellow: "border-yellow-400",
+        blue: "border-blue-400",
+        purple: "border-purple-400",
+        emerald: "border-emerald-400"
+    };
+    
+    const textColors: Record<string, string> = {
+        yellow: "text-yellow-400",
+        blue: "text-blue-400",
+        purple: "text-purple-400",
+        emerald: "text-emerald-400"
+    };
     
     useEffect(() => {
         if (isInView) {
             const duration = 2000;
-            const steps = 60;
-            const increment = endValue / steps;
+            const steps = 50;
+            const increment = value / steps;
             let current = 0;
             const timer = setInterval(() => {
                 current += increment;
-                if (current >= endValue) {
-                    setCount(endValue);
-                    setIsComplete(true);
+                if (current >= value) {
+                    setCount(value);
                     clearInterval(timer);
                 } else {
                     setCount(Math.floor(current));
@@ -108,24 +132,33 @@ const StatItem = ({ endValue, label, delay = 0, isYellow = false }) => {
             }, duration / steps);
             return () => clearInterval(timer);
         }
-    }, [isInView, endValue]);
+    }, [isInView, value]);
 
     return (
         <motion.div
             ref={ref}
-            initial={{ y: 20, opacity: 0 }}
+            initial={{ y: 30, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
-            transition={{ delay }}
-            className="text-center"
+            transition={{ duration: 0.5, delay }}
+            whileHover={{ y: -5 }}
+            className="relative"
         >
-            <div className="relative h-[80px] flex items-center justify-center">
-                <span className={`text-5xl md:text-6xl font-bold ${isYellow ? 'text-yellow-400' : 'text-white'}`}>
-                    {isComplete 
-                        ? `${endValue}${endValue === 12 ? 'M+' : endValue === 98 ? '%' : '+'}` 
-                        : toGeez(Math.floor(count))}
-                </span>
+            <div className={`bg-white/5 backdrop-blur-sm rounded-lg p-8 border-t-2 ${accentColors[accentColor]} transition-all duration-300 hover:bg-white/10 h-full flex flex-col items-center justify-center`}>
+                <div className="flex items-baseline mb-4">
+                    <span className={`text-5xl md:text-6xl font-bold ${textColors[accentColor]}`}>
+                        {Math.floor(count)}
+                    </span>
+                    <span className="text-2xl font-medium text-white/80 ml-1">
+                        {suffix}
+                    </span>
+                </div>
+                
+                <div className="w-12 h-0.5 bg-white/20 my-4"></div>
+                
+                <h3 className="text-xl font-medium text-white text-center">
+                    {label}
+                </h3>
             </div>
-            <p className="text-white/50 mt-2">{label}</p>
         </motion.div>
     );
 };

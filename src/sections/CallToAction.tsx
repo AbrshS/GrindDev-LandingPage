@@ -66,7 +66,7 @@ export default function CallToAction() {
             <div className="overflow-hidden">
                 <motion.div 
                     className="flex gap-16 text-6xl md:text-7xl font-medium whitespace-nowrap"
-                    initial={{ x: "50%" }}
+                    initial={{ x: "-50%" }}
                     animate={{ x: "0%" }}
                     transition={{ 
                         duration: 25,

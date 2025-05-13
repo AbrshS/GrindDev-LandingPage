@@ -1,42 +1,164 @@
-import Tag from "@/components/Tag";
-import Image from "next/image";
-import EthiopianImage from "@/assets/images/ethiopian-pattern.png";
+'use client'
 
-const text = `You're racing to create exceptional work, but traditional design tools slow you down with unnecessary complexity and steep learning curves.`;
+import { useEffect, useRef, useState } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import Tag from "@/components/Tag";
 
 export default function Introduction() {
+    const sectionRef = useRef(null);
+    const textRef = useRef(null);
+    const [isInView, setIsInView] = useState(false);
+    
+    const { scrollYProgress } = useScroll({
+        target: sectionRef,
+        offset: ["start end", "end start"]
+    });
+    
+    const fontWeight = useTransform(scrollYProgress, [0, 0.5, 1], [300, 600, 900]);
+    const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.95, 1, 1.05]);
+    const letterSpacing = useTransform(scrollYProgress, [0, 0.5, 1], ["-0.02em", "0em", "0.02em"]);
+    
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                setIsInView(entry.isIntersecting);
+            },
+            { threshold: 0.1 }
+        );
+        
+        if (textRef.current) {
+            observer.observe(textRef.current);
+        }
+        
+        return () => {
+            if (textRef.current) {
+                observer.unobserve(textRef.current);
+            }
+        };
+    }, []);
+    
     return (
-        <section className="relative min-h-screen">
-            <div className="flex justify-center pt-20">
-                <Tag>INTRODUCING LAYERS</Tag>
-            </div>
-
-            <div className="flex items-center min-h-[calc(100vh-120px)]">
-                {/* Background Pattern */}
-                <div className="absolute left-0 top-20 h-[calc(100%-80px)] w-[40%] md:w-[45%] lg:w-[45%]">
-                    <Image
-                        src={EthiopianImage}
-                        alt="Ethiopian Pattern"
-                        fill
-                        className="object-cover grayscale contrast-125 object-right scale-x-[-1]"
-                    />
+        <section ref={sectionRef} className="relative min-h-screen flex flex-col justify-center items-center py-20 px-4 overflow-hidden">
+            <div className="max-w-7xl mx-auto">
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8 }}
+                    className="mb-16 md:mb-24 flex justify-center"
+                >
+                  
+                    <Tag>
+                    INTRODUCING LAYERS
+                    </Tag>
+                </motion.div>
+                
+                <div ref={textRef} className="relative">
+                    {/* Words that animate to bold on scroll */}
+                    <motion.p 
+                        className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-tight md:leading-tight tracking-tight"
+                        style={{ 
+                            fontWeight,
+                            scale,
+                            letterSpacing
+                        }}
+                    >
+                        <motion.span 
+                            className="inline-block"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: isInView ? 1 : 0 }}
+                            transition={{ duration: 0.5, delay: 0.1 }}
+                        >
+                            We believe
+                        </motion.span>{" "}
+                        <motion.span 
+                            className="inline-block bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-500"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: isInView ? 1 : 0 }}
+                            transition={{ duration: 0.5, delay: 0.3 }}
+                        >
+                            creative tools
+                        </motion.span>{" "}
+                        <motion.span 
+                            className="inline-block"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: isInView ? 1 : 0 }}
+                            transition={{ duration: 0.5, delay: 0.5 }}
+                        >
+                            should empower, not
+                        </motion.span>{" "}
+                        <motion.span 
+                            className="inline-block"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: isInView ? 1 : 0 }}
+                            transition={{ duration: 0.5, delay: 0.7 }}
+                        >
+                            constrain.
+                        </motion.span>{" "}
+                        <motion.span 
+                            className="inline-block"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: isInView ? 1 : 0 }}
+                            transition={{ duration: 0.5, delay: 0.9 }}
+                        >
+                            Your
+                        </motion.span>{" "}
+                        <motion.span 
+                            className="inline-block bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 to-amber-500"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: isInView ? 1 : 0 }}
+                            transition={{ duration: 0.5, delay: 1.1 }}
+                        >
+                            creative process
+                        </motion.span>{" "}
+                        <motion.span 
+                            className="inline-block"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: isInView ? 1 : 0 }}
+                            transition={{ duration: 0.5, delay: 1.3 }}
+                        >
+                            deserves better than
+                        </motion.span>{" "}
+                        <motion.span 
+                            className="inline-block bg-clip-text text-transparent bg-gradient-to-r from-red-400 to-pink-500"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: isInView ? 1 : 0 }}
+                            transition={{ duration: 0.5, delay: 1.5 }}
+                        >
+                            complexity
+                        </motion.span>{" "}
+                        <motion.span 
+                            className="inline-block"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: isInView ? 1 : 0 }}
+                            transition={{ duration: 0.5, delay: 1.7 }}
+                        >
+                            and
+                        </motion.span>{" "}
+                        <motion.span 
+                            className="inline-block bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-500"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: isInView ? 1 : 0 }}
+                            transition={{ duration: 0.5, delay: 1.9 }}
+                        >
+                            frustration.
+                        </motion.span>
+                    </motion.p>
                 </div>
-
-                {/* Content */}
-                <div className="container relative z-10">
-                    <div className="ml-auto max-w-3xl lg:text-right px-4">
-                        <h2 className="text-5xl md:text-6xl lg:text-8xl font-medium leading-tight">
-                            Your creative process deserves better.
-                        </h2>
-                        <p className="text-white/40 mt-8 text-2xl md:text-3xl lg:text-4xl font-light">
-                            {text}
-                        </p>
-                        <p className="text-[#AAFF00] text-3xl md:text-4xl lg:text-5xl mt-8 font-medium">
-                            That&apos;s why we built Layers.
-                        </p>
-                    </div>
-                </div>
+                
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 30 }}
+                    transition={{ duration: 0.8, delay: 2.1 }}
+                    className="mt-12 md:mt-16"
+                >
+                    <p className="text-xl md:text-2xl text-white/60 max-w-3xl">
+                        That's why we built Layers — a design tool that adapts to your workflow, not the other way around.
+                    </p>
+                </motion.div>
             </div>
+            
+            {/* Subtle background gradient */}
+            <div className="absolute inset-0 -z-10 bg-gradient-to-b from-transparent via-purple-900/5 to-transparent"></div>
         </section>
     );
 }

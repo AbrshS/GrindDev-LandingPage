@@ -11,14 +11,86 @@ export default function ImpactNumbers() {
     
     return (
         <section ref={sectionRef} className="py-24 relative overflow-hidden">
-            {/* Subtle background grid pattern */}
-            <div className="absolute inset-0 opacity-10">
+            {/* Statistical luxury background */}
+            <div className="absolute inset-0 opacity-5">
+                {/* Grid lines */}
                 <div className="absolute inset-0" 
                     style={{
-                        backgroundImage: 'linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px)',
+                        backgroundImage: 'linear-gradient(to right, rgba(255, 255, 255, 0.5) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.5) 1px, transparent 1px)',
                         backgroundSize: '80px 80px'
                     }}
                 />
+                
+                {/* Statistical elements */}
+                <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                    <g fill="none" stroke="rgba(255,255,255,0.3)" strokeWidth="1">
+                        {/* Bar chart */}
+                        <motion.path 
+                            d="M100,500 L100,400 L140,400 L140,500 Z" 
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={isInView ? { opacity: 1, y: 0 } : {}}
+                            transition={{ duration: 1, delay: 0.1 }}
+                        />
+                        <motion.path 
+                            d="M160,500 L160,350 L200,350 L200,500 Z" 
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={isInView ? { opacity: 1, y: 0 } : {}}
+                            transition={{ duration: 1, delay: 0.2 }}
+                        />
+                        <motion.path 
+                            d="M220,500 L220,300 L260,300 L260,500 Z" 
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={isInView ? { opacity: 1, y: 0 } : {}}
+                            transition={{ duration: 1, delay: 0.3 }}
+                        />
+                        <motion.path 
+                            d="M280,500 L280,250 L320,250 L320,500 Z" 
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={isInView ? { opacity: 1, y: 0 } : {}}
+                            transition={{ duration: 1, delay: 0.4 }}
+                        />
+                        
+                        {/* Line graph */}
+                        <motion.path 
+                            d="M500,400 L550,380 L600,390 L650,350 L700,320 L750,340 L800,300" 
+                            initial={{ pathLength: 0, opacity: 0 }}
+                            animate={isInView ? { pathLength: 1, opacity: 1 } : {}}
+                            transition={{ duration: 2, delay: 0.5 }}
+                        />
+                        
+                        {/* Pie chart */}
+                        <motion.path 
+                            d="M900,350 L900,300 A50,50 0 0,1 943,325 Z" 
+                            initial={{ opacity: 0 }}
+                            animate={isInView ? { opacity: 1 } : {}}
+                            transition={{ duration: 1, delay: 0.6 }}
+                        />
+                        <motion.path 
+                            d="M900,350 L943,325 A50,50 0 0,1 925,375 Z" 
+                            initial={{ opacity: 0 }}
+                            animate={isInView ? { opacity: 1 } : {}}
+                            transition={{ duration: 1, delay: 0.7 }}
+                        />
+                        <motion.path 
+                            d="M900,350 L925,375 A50,50 0 0,1 875,375 Z" 
+                            initial={{ opacity: 0 }}
+                            animate={isInView ? { opacity: 1 } : {}}
+                            transition={{ duration: 1, delay: 0.8 }}
+                        />
+                        <motion.path 
+                            d="M900,350 L875,375 A50,50 0 0,1 857,325 Z" 
+                            initial={{ opacity: 0 }}
+                            animate={isInView ? { opacity: 1 } : {}}
+                            transition={{ duration: 1, delay: 0.9 }}
+                        />
+                        <motion.path 
+                            d="M900,350 L857,325 A50,50 0 0,1 900,300 Z" 
+                            initial={{ opacity: 0 }}
+                            animate={isInView ? { opacity: 1 } : {}}
+                            transition={{ duration: 1, delay: 1 }}
+                        />
+                    </g>
+                </svg>
             </div>
             
             {/* Main content */}
@@ -39,42 +111,46 @@ export default function ImpactNumbers() {
                     className="max-w-4xl mx-auto text-center mt-8"
                 >
                     <h2 className="text-6xl md:text-7xl font-medium">
-                        Driving <span className="text-yellow-400">innovation</span> through numbers
+                        Driving <span className="relative">
+                            innovation
+                            <motion.span 
+                                className="absolute -bottom-2 left-0 w-full h-0.5 bg-white/30"
+                                initial={{ width: 0 }}
+                                animate={isInView ? { width: "100%" } : {}}
+                                transition={{ duration: 1, delay: 0.8 }}
+                            />
+                        </span> through numbers
                     </h2>
                     <p className="text-white/50 mt-6 text-xl">
                         Our solutions have transformed businesses across industries, delivering measurable results and exceptional value.
                     </p>
                 </motion.div>
 
-                {/* Clean, professional stat cards */}
+                {/* Simple, clean stat display */}
                 <div className="mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    <StatCard 
+                    <SimpleStatDisplay 
                         value={12} 
                         suffix="M+" 
                         label="Active Users" 
                         delay={0} 
-                        accentColor="yellow"
                     />
-                    <StatCard 
+                    <SimpleStatDisplay 
                         value={98} 
                         suffix="%" 
                         label="Client Satisfaction" 
                         delay={0.1} 
-                        accentColor="blue"
                     />
-                    <StatCard 
+                    <SimpleStatDisplay 
                         value={50} 
                         suffix="+" 
                         label="Countries Served" 
                         delay={0.2} 
-                        accentColor="purple"
                     />
-                    <StatCard 
+                    <SimpleStatDisplay 
                         value={24} 
                         suffix="/7" 
                         label="Support Available" 
                         delay={0.3} 
-                        accentColor="emerald"
                     />
                 </div>
             </div>
@@ -82,38 +158,21 @@ export default function ImpactNumbers() {
     );
 }
 
-// Clean, professional stat card with subtle animation
-const StatCard = ({ 
+// Simple, clean stat display with minimal styling
+const SimpleStatDisplay = ({ 
     value, 
     label, 
     suffix = "", 
-    delay = 0,
-    accentColor = "yellow"
+    delay = 0
 }: { 
     value: number, 
     label: string, 
     suffix?: string, 
-    delay?: number,
-    accentColor?: string
+    delay?: number
 }) => {
     const [count, setCount] = useState(0);
     const ref = useRef(null);
     const isInView = useInView(ref, { once: true });
-    
-    // Map accent colors to Tailwind classes
-    const accentColors: Record<string, string> = {
-        yellow: "border-yellow-400",
-        blue: "border-blue-400",
-        purple: "border-purple-400",
-        emerald: "border-emerald-400"
-    };
-    
-    const textColors: Record<string, string> = {
-        yellow: "text-yellow-400",
-        blue: "text-blue-400",
-        purple: "text-purple-400",
-        emerald: "text-emerald-400"
-    };
     
     useEffect(() => {
         if (isInView) {
@@ -137,28 +196,45 @@ const StatCard = ({
     return (
         <motion.div
             ref={ref}
-            initial={{ y: 30, opacity: 0 }}
+            initial={{ y: 20, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, delay }}
-            whileHover={{ y: -5 }}
-            className="relative"
+            className="text-center"
         >
-            <div className={`bg-white/5 backdrop-blur-sm rounded-lg p-8 border-t-2 ${accentColors[accentColor]} transition-all duration-300 hover:bg-white/10 h-full flex flex-col items-center justify-center`}>
-                <div className="flex items-baseline mb-4">
-                    <span className={`text-5xl md:text-6xl font-bold ${textColors[accentColor]}`}>
-                        {Math.floor(count)}
-                    </span>
-                    <span className="text-2xl font-medium text-white/80 ml-1">
-                        {suffix}
-                    </span>
-                </div>
-                
-                <div className="w-12 h-0.5 bg-white/20 my-4"></div>
-                
-                <h3 className="text-xl font-medium text-white text-center">
-                    {label}
-                </h3>
+            <div className="flex items-baseline justify-center mb-4">
+                <motion.span 
+                    className="text-6xl md:text-7xl font-light"
+                    initial={{ opacity: 0 }}
+                    animate={isInView ? { opacity: 1 } : {}}
+                    transition={{ duration: 0.5, delay: delay + 0.1 }}
+                >
+                    {Math.floor(count)}
+                </motion.span>
+                <motion.span 
+                    className="text-2xl font-light ml-1"
+                    initial={{ opacity: 0 }}
+                    animate={isInView ? { opacity: 1 } : {}}
+                    transition={{ duration: 0.5, delay: delay + 0.2 }}
+                >
+                    {suffix}
+                </motion.span>
             </div>
+            
+            <motion.div 
+                className="w-12 h-px bg-white/20 mx-auto my-3"
+                initial={{ width: 0 }}
+                animate={isInView ? { width: 48 } : {}}
+                transition={{ duration: 0.8, delay: delay + 0.3 }}
+            />
+            
+            <motion.h3 
+                className="text-xl font-light text-white/80"
+                initial={{ opacity: 0 }}
+                animate={isInView ? { opacity: 1 } : {}}
+                transition={{ duration: 0.5, delay: delay + 0.4 }}
+            >
+                {label}
+            </motion.h3>
         </motion.div>
     );
 };

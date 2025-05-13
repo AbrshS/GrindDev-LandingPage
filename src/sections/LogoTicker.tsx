@@ -1,3 +1,5 @@
+'use client'
+
 import quantumLogo from "@/assets/images/quantum.svg";
 import acmeLogo from "@/assets/images/acme-corp.svg";
 import echoValleyLogo from "@/assets/images/echo-valley.svg";
@@ -7,6 +9,9 @@ import apexLogo from "@/assets/images/apex.svg";
 import celestialLogo from "@/assets/images/celestial.svg";
 import twiceLogo from "@/assets/images/twice.svg";
 import Image from "next/image";
+import { useRef } from "react";
+import { motion } from "framer-motion";
+
 const logos = [
     { name: "Quantum", image: quantumLogo },
     { name: "Acme Corp", image: acmeLogo },
@@ -18,17 +23,48 @@ const logos = [
     { name: "Twice", image: twiceLogo },
 ];
 
+// Duplicate logos for seamless scrolling
+const extendedLogos = [...logos, ...logos];
+
 export default function LogoTicker() {
-    return <section className="py-24 overflow-x-clip">
-        <div className="container">
-            <h3 className="text-center text-whtie/50 text-xl">Already chosen by these market leaders</h3>
-            <div className="relative mt-12 before:absolute before:left-0 before:top-0 before:z-10 before:h-full before:w-[100px] before:bg-gradient-to-r before:from-black after:absolute after:right-0 after:top-0 after:z-10 after:h-full after:w-[100px] after:bg-gradient-to-l after:from-balck">
-                <div className="flex gap-24 pr-24">
-                    {logos.map(logo => (
-                        <Image src={logo.image} key={logo.name} alt={logo.name} />
-                    ))}
+    const scrollRef = useRef<HTMLDivElement>(null);
+    
+    return (
+        <section className="py-16 md:py-24 overflow-hidden">
+            <div className="container">
+                
+                
+                <div className="mt-12 relative">
+                    {/* Gradient overlays for smooth fade effect */}
+                    <div className="absolute left-0 top-0 z-10 h-full w-[100px] bg-gradient-to-r from-black to-transparent"></div>
+                    <div className="absolute right-0 top-0 z-10 h-full w-[100px] bg-gradient-to-l from-black to-transparent"></div>
+                    
+                    {/* First row - scrolling left */}
+                    <div className="mb-12 overflow-hidden" ref={scrollRef}>
+                        <motion.div 
+                            className="flex items-center gap-20 md:gap-28"
+                            initial={{ x: 0 }}
+                            animate={{ x: "-50%" }}
+                            transition={{ 
+                                duration: 30,
+                                repeat: Infinity,
+                                ease: "linear",
+                            }}
+                        >
+                            {extendedLogos.map((logo, index) => (
+                                <Image 
+                                    key={`${logo.name}-${index}`}
+                                    src={logo.image} 
+                                    alt={logo.name} 
+                                    className="w-auto h-10 opacity-70 hover:opacity-100 transition-opacity duration-300 grayscale hover:grayscale-0"
+                                />
+                            ))}
+                        </motion.div>
+                    </div>
+                    
+                   
                 </div>
             </div>
-        </div>
-    </section>;
+        </section>
+    );
 }

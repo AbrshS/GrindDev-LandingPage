@@ -30,15 +30,15 @@ export default function LogoTicker() {
     const scrollRef = useRef<HTMLDivElement>(null);
     
     return (
-        <section className="py-16 md:py-24 overflow-hidden">
+        <section className="-mt-52 md:py-24 overflow-hidden ">
             <div className="container">
                 
                 
-                <div className="mt-12 relative">
+                <div className=" relative">
                     {/* Gradient overlays for smooth fade effect */}
                     <div className="absolute left-0 top-0 z-10 h-full w-[100px] bg-gradient-to-r from-black to-transparent"></div>
                     <div className="absolute right-0 top-0 z-10 h-full w-[100px] bg-gradient-to-l from-black to-transparent"></div>
-                    
+                
                     {/* First row - scrolling left */}
                     <div className="mb-12 overflow-hidden" ref={scrollRef}>
                         <motion.div 

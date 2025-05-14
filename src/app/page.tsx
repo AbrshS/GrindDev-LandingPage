@@ -20,8 +20,7 @@ export default function Home() {
             {/* Hero section to capture attention immediately */}
             <Hero/> 
             
-            {/* Social proof early to establish credibility */}
-            <LogoTicker/>
+           
             
             {/* Introduction to explain what your product/service is */}
             <Introduction/>

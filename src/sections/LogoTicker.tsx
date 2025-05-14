@@ -30,7 +30,7 @@ export default function LogoTicker() {
     const scrollRef = useRef<HTMLDivElement>(null);
     
     return (
-        <section className="-mt-52 md:py-24 overflow-hidden ">
+        <section className="-mt-12 md:py-24 overflow-hidden ">
             <div className="container">
                 
                 
